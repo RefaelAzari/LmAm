@@ -8,5 +8,20 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxt/image',
     '@nuxt/eslint'
-  ]
+  ],
+
+  app: {
+    head: {
+      link: [
+        { rel: 'stylesheet', href: '/assets/css/main.css' }
+      ],
+      script: [
+        { src: '/assets/js/jquery.min.js', tagPosition: 'bodyClose' },
+        { src: '/assets/js/browser.min.js', tagPosition: 'bodyClose' },
+        { src: '/assets/js/breakpoints.min.js', tagPosition: 'bodyClose' },
+        { src: '/assets/js/util.js', tagPosition: 'bodyClose' },
+        { src: '/assets/js/main.js', tagPosition: 'bodyClose' }
+      ]
+    }
+  }
 })

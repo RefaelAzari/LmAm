@@ -1,0 +1,57 @@
+body {
+  direction: rtl;
+  text-align: right;
+}
+
+// Fix navigation alignment
+#sidebar nav ul {
+  padding-right: 0;
+}
+
+// Flip icon alignment if needed
+.icon {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+// Optional: fix alignment of split sections
+.split.style1 > section {
+  text-align: right;
+}
+// Fix sidebar position in RTL
+#sidebar {
+  right: 0;
+  left: auto;
+  text-align: right;
+}
+
+// Always show the sidebar
+#sidebar {
+  display: block !important;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: auto;
+  width: 18em; // adjust as needed
+  height: 100%;
+  z-index: 10000;
+  background: #1b1f22; // or match template bg
+}
+
+// Push content to the left of the sidebar
+#wrapper {
+  margin-right: 18em; // must match sidebar width
+}
+
+// Optional: adjust mobile behavior
+@media screen and (max-width: 736px) {
+  #sidebar {
+    width: 100%;
+    position: fixed;
+    z-index: 10000;
+  }
+
+  #wrapper {
+    margin-right: 0;
+  }
+}

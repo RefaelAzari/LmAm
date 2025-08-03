@@ -1,6 +1,10 @@
+<!-- app/app.vue -->
 <template>
-  <div>
+  <div id="__nuxt">
+    <!-- Optional: Keep route announcer for accessibility -->
     <NuxtRouteAnnouncer />
-    <NuxtWelcome />
+
+    <!-- Hyperspace structure will be rendered via Nuxt pages -->
+    <NuxtPage />
   </div>
 </template>
