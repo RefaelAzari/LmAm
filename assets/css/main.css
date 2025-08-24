@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles for Hebrew RTL */
+@layer base {
+  html {
+    direction: rtl;
+    font-family: 'Assistant', system-ui, ui-sans-serif, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  }
+  
+  body {
+    direction: rtl;
+    font-family: 'Assistant', system-ui, ui-sans-serif, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .btn-primary {
+    @apply rounded-2xl bg-brand-600 text-white px-6 py-3 font-semibold shadow-soft hover:bg-brand-700 transition-all duration-200;
+  }
+  
+  .btn-secondary {
+    @apply rounded-2xl border border-slate-200 px-6 py-3 font-semibold hover:border-brand-300 hover:text-brand-700 transition-all duration-200;
+  }
+  
+  .card {
+    @apply rounded-3xl border border-slate-100 p-6 shadow-soft hover:shadow-md transition-all duration-200;
+  }
+}
+
+/* Custom utility styles */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .rtl {
+    direction: rtl;
+  }
+  
+  .ltr {
+    direction: ltr;
+  }
+}

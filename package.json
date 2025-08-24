@@ -1,0 +1,22 @@
+{
+  "name": "payroll-landing-page",
+  "version": "1.0.0",
+  "description": "PayrollPro landing page built with Nuxt 4 and Tailwind CSS",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@nuxtjs/tailwindcss": "^6.11.4",
+    "nuxt": "^4.0.0"
+  },
+  "dependencies": {
+    "vue": "^3.4.0"
+  }
+}

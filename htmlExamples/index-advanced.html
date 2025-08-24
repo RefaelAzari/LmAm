@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>חשב שכר עצמאי - גרסה מתקדמת</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              deep: "#1a237e",
+              gold: "#FFD700",
+              goldDark: "#BFA100",
+              blue: "#3b82f6",
+              purple: "#7c3aed",
+              white: "#ffffff",
+            },
+            fontFamily: {
+              heebo: ["Heebo", "sans-serif"],
+            },
+            animation: {
+              "fade-in": "fadeIn 1.2s cubic-bezier(0.4,0,0.2,1)",
+              "slide-up": "slideUp 1.2s cubic-bezier(0.4,0,0.2,1)",
+              "slide-left": "slideLeft 1.2s cubic-bezier(0.4,0,0.2,1)",
+              "slide-right": "slideRight 1.2s cubic-bezier(0.4,0,0.2,1)",
+              glow: "glow 2s infinite alternate",
+              parallax: "parallax 10s linear infinite",
+              stagger: "stagger 0.5s cubic-bezier(0.4,0,0.2,1)",
+              float: "float 2.5s ease-in-out infinite",
+              "menu-fade": "menuFade 0.4s cubic-bezier(0.4,0,0.2,1)",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%": {
+                  transform: "translateY(30px)",
+                  opacity: "0",
+                },
+                "100%": {
+                  transform: "translateY(0)",
+                  opacity: "1",
+                },
+              },
+              slideLeft: {
+                "0%": { transform: "translateX(30px)", opacity: "0" },
+                "100%": { transform: "translateX(0)", opacity: "1" },
+              },
+              slideRight: {
+                "0%": { transform: "translateX(-30px)", opacity: "0" },
+                "100%": { transform: "translateX(0)", opacity: "1" },
+              },
+              glow: {
+                "0%": { boxShadow: "0 0 0 0 #FFD700" },
+                "100%": { boxShadow: "0 0 32px 8px #FFD700" },
+              },
+              parallax: {
+                "0%": { transform: "translateY(0)" },
+                "100%": { transform: "translateY(-40px)" },
+              },
+              stagger: {
+                "0%": { opacity: "0", transform: "translateY(40px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-16px)" },
+              },
+              menuFade: {
+                "0%": { opacity: "0", transform: "translateY(-32px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap");
+      html,
+      body {
+        width: 100vw;
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+      body {
+        font-family: "Heebo", sans-serif;
+        background: linear-gradient(135deg, #1a237e 0%, #7c3aed 100%);
+      }
+      .gradient-bg {
+        background: linear-gradient(135deg, #1a237e 0%, #7c3aed 100%);
+      }
+      .gold-gradient {
+        background: linear-gradient(90deg, #ffd700 0%, #fffbe6 100%);
+      }
+      .glow-gold {
+        box-shadow: 0 0 24px 0 #ffd70099, 0 0 0 2px #ffd700;
+      }
+      .card-advanced {
+        background: rgba(255, 255, 255, 0.07);
+        border: 1.5px solid #ffd700;
+        box-shadow: 0 4px 32px 0 rgba(255, 215, 0, 0.1);
+        transition: box-shadow 0.3s, transform 0.3s;
+      }
+      .card-advanced:hover {
+        box-shadow: 0 8px 40px 0 #ffd70055;
+        transform: translateY(-8px) scale(1.03);
+      }
+      .parallax-bg {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 0;
+        pointer-events: none;
+        min-width: 0;
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+      .parallax-bg svg,
+      .parallax-bg span {
+        min-width: 0;
+        max-width: 100vw;
+      }
+      .parallax-bg span {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.13;
+        background: #ffd700;
+        animation: parallax 12s linear infinite;
+      }
+      @media (max-width: 430px) {
+        .parallax-bg svg {
+          width: 100vw !important;
+          height: 180px !important;
+        }
+      }
+      .mobile-menu-bg {
+        background: rgba(20, 22, 40, 0.92);
+        backdrop-filter: blur(6px);
+      }
+      .mobile-menu-card {
+        background: #fff;
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 40px 0 #0005, 0 0 0 2px #ffd700;
+        padding: 2.5rem 1.5rem 2rem 1.5rem;
+        min-width: 80vw;
+        max-width: 95vw;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: menuFade 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @media (max-width: 430px) {
+        .mobile-menu-card {
+          min-width: 96vw;
+          padding: 2rem 0.5rem 1.5rem 0.5rem;
+        }
+      }
+
+      [data-animated="true"] {
+        transition: opacity 1s ease-out, transform 1s ease-out;
+        will-change: opacity, transform;
+      }
+    </style>
+  </head>
+  <body class="gradient-bg text-white">
+    <!-- Back to Top Button -->
+    <button
+      id="backToTopBtn"
+      aria-label="חזור לראש הדף"
+      class="fixed left-4 bottom-8 z-[100] bg-gold text-deep rounded-full shadow-lg p-3 sm:p-4 text-2xl flex items-center justify-center transition-all duration-300 opacity-0 invisible pointer-events-none"
+      style="box-shadow: 0 4px 24px #ffd70055"
+    >
+      <svg
+        class="w-7 h-7"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 15l7-7 7 7"
+        />
+      </svg>
+    </button>
+    <!-- Navigation -->
+    <nav class="bg-deep/90 shadow-lg fixed w-full z-50 animate-fade-in">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+          <div class="flex items-center animate-fade-in">
+            <div
+              class="w-12 h-12 gold-gradient rounded-lg flex items-center justify-center shadow-lg animate-glow"
+            >
+              <span class="text-deep font-bold text-2xl">חשב</span>
+            </div>
+            <span class="mr-4 text-2xl font-bold text-gold drop-shadow-lg"
+              >חשב שכר עצמאי</span
+            >
+          </div>
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8 space-x-reverse">
+            <a
+              href="#home"
+              class="text-white hover:text-gold transition-colors duration-300 font-medium"
+              >בית</a
+            >
+            <a
+              href="#services"
+              class="text-white hover:text-gold transition-colors duration-300 font-medium"
+              >שירותים</a
+            >
+            <a
+              href="#about"
+              class="text-white hover:text-gold transition-colors duration-300 font-medium"
+              >אודות</a
+            >
+            <a
+              href="#contact"
+              class="text-white hover:text-gold transition-colors duration-300 font-medium"
+              >צור קשר</a
+            >
+          </div>
+          <!-- Hamburger Button -->
+          <button
+            id="mobile-menu-btn"
+            class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg border border-gold text-gold hover:bg-gold hover:text-deep transition-colors duration-300"
+            aria-label="תפריט"
+            type="button"
+          >
+            <svg
+              class="w-7 h-7"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 8h16M4 16h16"
+              />
+            </svg>
+          </button>
+          <button
+            class="bg-gold text-deep px-7 py-2 rounded-lg font-semibold hover:bg-goldDark hover:text-white border border-gold transition-colors duration-300 shadow animate-fade-in hidden md:block"
+          >
+            התחל עכשיו
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Menu Overlay -->
+      <div
+        id="mobile-menu"
+        class="fixed inset-0 mobile-menu-bg z-50 flex-col items-center justify-center hidden animate-fade-in"
+      >
+        <div class="flex flex-col items-center justify-center h-full w-full">
+          <div class="mobile-menu-card">
+            <button
+              id="mobile-menu-close"
+              class="absolute top-6 left-6 text-gold hover:text-deep text-3xl"
+              aria-label="סגור תפריט"
+            >
+              &times;
+            </button>
+            <a
+              href="#home"
+              class="text-gold text-2xl font-bold py-2 hover:text-deep transition-colors"
+              onclick="closeMobileMenu()"
+              >בית</a
+            >
+            <a
+              href="#services"
+              class="text-gold text-2xl font-bold py-2 hover:text-deep transition-colors"
+              onclick="closeMobileMenu()"
+              >שירותים</a
+            >
+            <a
+              href="#about"
+              class="text-gold text-2xl font-bold py-2 hover:text-deep transition-colors"
+              onclick="closeMobileMenu()"
+              >אודות</a
+            >
+            <a
+              href="#contact"
+              class="text-gold text-2xl font-bold py-2 hover:text-deep transition-colors"
+              onclick="closeMobileMenu()"
+              >צור קשר</a
+            >
+            <button
+              class="bg-gold text-deep px-8 py-3 rounded-lg font-semibold hover:bg-goldDark hover:text-white border border-gold transition-colors duration-300 text-lg shadow mt-6 w-full"
+              onclick="closeMobileMenu()"
+            >
+              התחל עכשיו
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="relative min-h-screen flex items-center justify-center overflow-x-hidden overflow-y-visible pt-24 pb-8 sm:pb-12"
+    >
+      <!-- Elegant SVG Gold Waves Background -->
+      <svg
+        class="absolute top-0 left-0 w-full max-w-full h-auto min-w-0 z-0"
+        viewBox="0 0 1440 500"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style="pointer-events: none; min-width: 0; max-width: 100vw"
+      >
+        <defs>
+          <linearGradient id="goldWave" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#FFD700" stop-opacity="0.18" />
+            <stop offset="100%" stop-color="#BFA100" stop-opacity="0.12" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M0,400 Q360,320 720,400 T1440,400 V500 H0Z"
+          fill="url(#goldWave)"
+        >
+          <animate
+            attributeName="d"
+            dur="8s"
+            repeatCount="indefinite"
+            values="M0,400 Q360,320 720,400 T1440,400 V500 H0Z;M0,420 Q360,360 720,420 T1440,420 V500 H0Z;M0,400 Q360,320 720,400 T1440,400 V500 H0Z"
+          />
+        </path>
+        <ellipse cx="1200" cy="120" rx="180" ry="60" fill="#FFD70022">
+          <animate
+            attributeName="cy"
+            values="120;160;120"
+            dur="10s"
+            repeatCount="indefinite"
+          />
+        </ellipse>
+        <ellipse cx="300" cy="80" rx="120" ry="40" fill="#FFD70033">
+          <animate
+            attributeName="cy"
+            values="80;120;80"
+            dur="12s"
+            repeatCount="indefinite"
+          />
+        </ellipse>
+      </svg>
+      <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 relative z-10 w-full">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-12 items-center w-full"
+        >
+          <div class="will-fade-in" style="animation-delay: 0.1s">
+            <h1
+              class="text-3xl sm:text-5xl lg:text-6xl font-bold text-gold mb-4 leading-tight drop-shadow-xl relative break-words"
+            >
+              פתרון מקצועי ל
+              <span class="block relative">
+                <span
+                  class="text-white font-extrabold"
+                  style="text-shadow: 0 0 16px #ffd70099"
+                  >חשב שכר עצמאי</span
+                >
+                <span
+                  class="absolute left-0 right-0 -bottom-2 h-2 gold-gradient rounded-full animate-glow"
+                  style="filter: blur(1px)"
+                ></span>
+              </span>
+            </h1>
+            <p
+              class="text-base sm:text-xl text-white/90 mb-6 sm:mb-8 leading-relaxed will-slide-up"
+              style="animation-delay: 0.3s"
+            >
+              ניהול שכר מקצועי, מדויק ויעיל עבור עצמאים ועסקים קטנים. חוסך זמן,
+              כסף ודאגות עם שירות אישי ומקצועי.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
+              <button
+                class="bg-gold text-deep px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-goldDark hover:text-white border border-gold transition-colors duration-300 text-base sm:text-lg shadow will-float w-full sm:w-auto"
+                style="animation-delay: 0.5s"
+              >
+                התחל חינם
+              </button>
+              <button
+                class="border-2 border-gold text-gold px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-gold hover:text-deep transition-all duration-300 text-base sm:text-lg will-fade-in w-full sm:w-auto"
+                style="animation-delay: 0.7s"
+              >
+                צפה בדוגמה
+              </button>
+            </div>
+          </div>
+          <div class="will-fade-in" style="animation-delay: 0.4s">
+            <div
+              class="bg-white rounded-2xl p-4 sm:p-8 shadow-2xl card-advanced animate-glow will-float w-full max-w-xs mx-auto"
+            >
+              <div class="text-center">
+                <div
+                  class="w-16 sm:w-20 h-16 sm:h-20 gold-gradient rounded-full mx-auto mb-4 sm:mb-6 flex items-center justify-center animate-glow"
+                >
+                  <svg
+                    class="w-8 sm:w-10 h-8 sm:h-10 text-deep"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+                    ></path>
+                  </svg>
+                </div>
+                <h3
+                  class="text-xl sm:text-2xl font-bold text-deep mb-2 sm:mb-4"
+                >
+                  דוגמת תלוש שכר
+                </h3>
+                <div class="space-y-2 sm:space-y-3 text-right">
+                  <div class="flex justify-between text-sm sm:text-base">
+                    <span class="text-deep font-bold">שכר ברוטו:</span>
+                    <span class="font-semibold text-deep">₪15,000</span>
+                  </div>
+                  <div class="flex justify-between text-sm sm:text-base">
+                    <span class="text-deep font-bold">מס הכנסה:</span>
+                    <span class="font-semibold text-deep">₪2,500</span>
+                  </div>
+                  <div class="flex justify-between text-sm sm:text-base">
+                    <span class="text-deep font-bold">ביטוח לאומי:</span>
+                    <span class="font-semibold text-deep">₪750</span>
+                  </div>
+                  <hr class="my-2 sm:my-3 border-gold" />
+                  <div
+                    class="flex justify-between text-base sm:text-lg font-bold"
+                  >
+                    <span class="text-deep">שכר נטו:</span>
+                    <span class="text-gold">₪11,750</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white/90">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 will-fade-in">
+          <h2 class="text-4xl font-bold text-deep mb-4">השירותים שלנו</h2>
+          <p class="text-xl text-deep/80 max-w-3xl mx-auto">
+            אנו מספקים פתרון מקיף לניהול שכר עבור עצמאים ועסקים קטנים
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Service Card 1 -->
+          <div class="card-advanced rounded-xl p-8 will-stagger transition duration-700 ease-out transform">
+            <div
+              class="w-16 h-16 gold-gradient rounded-lg flex items-center justify-center mb-6 animate-glow"
+            >
+              <svg
+                class="w-8 h-8 text-deep"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-deep mb-4">חישוב שכר מדויק</h3>
+            <p class="text-deep/80 leading-relaxed">
+              חישוב אוטומטי של שכר ברוטו ונטו, מס הכנסה, ביטוח לאומי וכל
+              הניכויים הנדרשים
+            </p>
+          </div>
+          <!-- Service Card 2 -->
+          <div
+            class="card-advanced rounded-xl p-8 will-stagger transition duration-700 ease-out transform"
+            style="animation-delay: 0.15s"
+          >
+            <div
+              class="w-16 h-16 gold-gradient rounded-lg flex items-center justify-center mb-6 animate-glow"
+            >
+              <svg
+                class="w-8 h-8 text-deep"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-deep mb-4">דוחות מפורטים</h3>
+            <p class="text-deep/80 leading-relaxed">
+              דוחות שנתיים, חודשיים ויומיים מפורטים עם ניתוח מגמות ונתונים
+              סטטיסטיים
+            </p>
+          </div>
+          <!-- Service Card 3 -->
+          <div
+            class="card-advanced rounded-xl p-8 will-stagger transition duration-700 ease-out transform"
+            style="animation-delay: 0.3s"
+          >
+            <div
+              class="w-16 h-16 gold-gradient rounded-lg flex items-center justify-center mb-6 animate-glow"
+            >
+              <svg
+                class="w-8 h-8 text-deep"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-deep mb-4">אבטחה מתקדמת</h3>
+            <p class="text-deep/80 leading-relaxed">
+              אבטחה ברמה הגבוהה ביותר עם הצפנה מתקדמת וגיבוי אוטומטי של כל
+              הנתונים
+            </p>
+          </div>
+          <!-- Service Card 4 -->
+          <div
+            class="card-advanced rounded-xl p-8 will-stagger transition duration-700 ease-out transform"
+            style="animation-delay: 0.45s"
+          >
+            <div
+              class="w-16 h-16 gold-gradient rounded-lg flex items-center justify-center mb-6 animate-glow"
+            >
+              <svg
+                class="w-8 h-8 text-deep"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 109.75 9.75A9.75 9.75 0 0012 2.25z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-deep mb-4">גישה מכל מקום</h3>
+            <p class="text-deep/80 leading-relaxed">
+              גישה לנתונים מכל מכשיר ובכל זמן עם ממשק ידידותי ומותאם למובייל
+            </p>
+          </div>
+          <!-- Service Card 5 -->
+          <div
+            class="card-advanced rounded-xl p-8 will-stagger transition duration-700 ease-out transform"
+            style="animation-delay: 0.6s"
+          >
+            <div
+              class="w-16 h-16 gold-gradient rounded-lg flex items-center justify-center mb-6 animate-glow"
+            >
+              <svg
+                class="w-8 h-8 text-deep"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-deep mb-4">תמיכה 24/7</h3>
+            <p class="text-deep/80 leading-relaxed">
+              תמיכה מקצועית זמינה 24/7 עם צוות מומחים לפתרון כל בעיה או שאלה
+            </p>
+          </div>
+          <!-- Service Card 6 -->
+          <div
+            class="card-advanced rounded-xl p-8 will-stagger transition duration-700 ease-out transform"
+            style="animation-delay: 0.75s"
+          >
+            <div
+              class="w-16 h-16 gold-gradient rounded-lg flex items-center justify-center mb-6 animate-glow"
+            >
+              <svg
+                class="w-8 h-8 text-deep"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-deep mb-4">אינטגרציה מתקדמת</h3>
+            <p class="text-deep/80 leading-relaxed">
+              אינטגרציה עם מערכות חשבונאיות פופולריות וייצוא נתונים בפורמטים
+              שונים
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section
+      id="about"
+      class="py-20 bg-gradient-to-br from-white/90 to-gold/10"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="will-slide-right">
+            <h2 class="text-4xl font-bold text-deep mb-6">למה לבחור בנו?</h2>
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div
+                  class="w-8 h-8 gold-gradient rounded-full flex items-center justify-center mr-4 mt-1 animate-glow"
+                >
+                  <svg
+                    class="w-4 h-4 text-deep"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-deep mb-2">
+                    ניסיון של 15+ שנים
+                  </h3>
+                  <p class="text-deep/80">
+                    צוות מקצועי עם ניסיון רב בתחום החשבונאות וניהול השכר
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div
+                  class="w-8 h-8 gold-gradient rounded-full flex items-center justify-center mr-4 mt-1 animate-glow"
+                >
+                  <svg
+                    class="w-4 h-4 text-deep"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-deep mb-2">
+                    טכנולוגיה מתקדמת
+                  </h3>
+                  <p class="text-deep/80">
+                    שימוש בטכנולוגיות החדישות ביותר לאבטחה ויעילות מקסימלית
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div
+                  class="w-8 h-8 gold-gradient rounded-full flex items-center justify-center mr-4 mt-1 animate-glow"
+                >
+                  <svg
+                    class="w-4 h-4 text-deep"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-deep mb-2">
+                    שירות אישי
+                  </h3>
+                  <p class="text-deep/80">
+                    ליווי אישי ומקצועי לכל לקוח עם פתרונות מותאמים אישית
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div
+                  class="w-8 h-8 gold-gradient rounded-full flex items-center justify-center mr-4 mt-1 animate-glow"
+                >
+                  <svg
+                    class="w-4 h-4 text-deep"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-deep mb-2">
+                    מחירים תחרותיים
+                  </h3>
+                  <p class="text-deep/80">
+                    מחירים הוגנים ותוכניות גמישות המתאימות לכל עסק
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="will-slide-left">
+            <div class="bg-white/90 rounded-2xl p-8 shadow-xl card-advanced">
+              <div class="text-center mb-8">
+                <h3 class="text-2xl font-bold text-deep mb-4">סטטיסטיקות</h3>
+              </div>
+              <div class="grid grid-cols-2 gap-6">
+                <div class="text-center">
+                  <div class="text-3xl font-bold text-gold mb-2">500+</div>
+                  <div class="text-deep/80">לקוחות מרוצים</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-3xl font-bold text-gold mb-2">15+</div>
+                  <div class="text-deep/80">שנות ניסיון</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-3xl font-bold text-gold mb-2">99.9%</div>
+                  <div class="text-deep/80">זמינות המערכת</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-3xl font-bold text-gold mb-2">24/7</div>
+                  <div class="text-deep/80">תמיכה זמינה</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white/90">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 will-fade-in">
+          <h2 class="text-4xl font-bold text-deep mb-4">צור קשר</h2>
+          <p class="text-xl text-deep/80">
+            מוכנים להתחיל? צרו קשר עכשיו לקבלת הצעת מחיר אישית
+          </p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div class="will-slide-right">
+            <form class="space-y-6">
+              <div>
+                <label class="block text-deep font-semibold mb-2">שם מלא</label>
+                <input
+                  type="text"
+                  class="w-full px-4 py-3 border border-gold rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-300 bg-white/80 text-deep"
+                  placeholder="הכנס את שמך המלא"
+                />
+              </div>
+              <div>
+                <label class="block text-deep font-semibold mb-2">אימייל</label>
+                <input
+                  type="email"
+                  class="w-full px-4 py-3 border border-gold rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-300 bg-white/80 text-deep"
+                  placeholder="הכנס את כתובת האימייל שלך"
+                />
+              </div>
+              <div>
+                <label class="block text-deep font-semibold mb-2">טלפון</label>
+                <input
+                  type="tel"
+                  class="w-full px-4 py-3 border border-gold rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-300 bg-white/80 text-deep text-right"
+                  placeholder="הכנס את מספר הטלפון שלך"
+                  style="direction: rtl"
+                />
+              </div>
+              <div>
+                <label class="block text-deep font-semibold mb-2">הודעה</label>
+                <textarea
+                  rows="4"
+                  class="w-full px-4 py-3 border border-gold rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-300 bg-white/80 text-deep"
+                  placeholder="ספר לנו על הצרכים שלך"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="w-full bg-gold text-deep py-3 px-6 rounded-lg font-semibold hover:bg-goldDark hover:text-white border border-gold transition-colors duration-300 text-lg shadow"
+              >
+                שלח הודעה
+              </button>
+            </form>
+          </div>
+          <div class="will-slide-left">
+            <div
+              class="gold-gradient rounded-2xl p-8 text-deep shadow-xl card-advanced"
+            >
+              <h3 class="text-2xl font-bold mb-6">פרטי התקשרות</h3>
+              <div class="space-y-4">
+                <div class="flex items-center">
+                  <svg
+                    class="w-6 h-6 mr-3 text-deep"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    ></path>
+                  </svg>
+                  <span>03-1234567</span>
+                </div>
+                <div class="flex items-center">
+                  <svg
+                    class="w-6 h-6 mr-3 text-deep"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                  <span>info@payroll.co.il</span>
+                </div>
+                <div class="flex items-center">
+                  <svg
+                    class="w-6 h-6 mr-3 text-deep"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    ></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    ></path>
+                  </svg>
+                  <span>רחוב הרצל 123, תל אביב</span>
+                </div>
+              </div>
+              <div class="mt-8">
+                <h4 class="text-lg font-semibold mb-4">שעות פעילות</h4>
+                <div class="space-y-2">
+                  <div class="flex justify-between">
+                    <span>ראשון - חמישי:</span>
+                    <span>09:00 - 18:00</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>שישי:</span>
+                    <span>09:00 - 13:00</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>שבת:</span>
+                    <span>סגור</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-deep text-gold py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <div class="flex items-center mb-4">
+              <div
+                class="w-10 h-10 gold-gradient rounded-lg flex items-center justify-center"
+              >
+                <span class="text-deep font-bold text-xl">חשב</span>
+              </div>
+              <span class="mr-3 text-xl font-bold">חשב שכר עצמאי</span>
+            </div>
+            <p class="leading-relaxed text-white/80">
+              פתרון מקצועי לניהול שכר עבור עצמאים ועסקים קטנים. חוסך זמן, כסף
+              ודאגות.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">שירותים</h3>
+            <ul class="space-y-2 text-white/80">
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-gold transition-colors duration-300"
+                  >חישוב שכר</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-gold transition-colors duration-300"
+                  >דוחות</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-gold transition-colors duration-300"
+                  >תלושי שכר</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-gold transition-colors duration-300"
+                  >ייעוץ</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">חברה</h3>
+            <ul class="space-y-2 text-white/80">
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-gold transition-colors duration-300"
+                  >אודות</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-gold transition-colors duration-300"
+                  >צוות</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-gold transition-colors duration-300"
+                  >קריירה</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-gold transition-colors duration-300"
+                  >בלוג</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">תמיכה</h3>
+            <ul class="space-y-2 text-white/80">
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-gold transition-colors duration-300"
+                  >צור קשר</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-gold transition-colors duration-300"
+                  >עזרה</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-gold transition-colors duration-300"
+                  >מדריכים</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-gold transition-colors duration-300"
+                  >FAQ</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-gold mt-8 pt-8 text-center">
+          <p class="text-white/80">© 2024 חשב שכר עצמאי. כל הזכויות שמורות.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+      // Intersection Observer for scroll-triggered animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -10px 0px",
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target;
+
+          // אל תפעיל שוב אם האלמנט כבר אנימייטד
+          if (entry.isIntersecting && !el.dataset.animated) {
+            el.dataset.animated = "true"; // מסמן שהאלמנט כבר עבר אנימציה
+
+            el.classList.remove("opacity-0");
+            el.classList.add("animate-fade-in");
+
+            if (el.classList.contains("will-slide-up"))
+              el.classList.add("animate-slide-up");
+            if (el.classList.contains("will-slide-left"))
+              el.classList.add("animate-slide-left");
+            if (el.classList.contains("will-slide-right"))
+              el.classList.add("animate-slide-right");
+            if (el.classList.contains("will-stagger"))
+              el.classList.add("animate-stagger");
+            if (el.classList.contains("will-float"))
+              el.classList.add("animate-float");
+
+            // אחרי שהאנימציה התחילה – אפשר להפסיק לצפות
+            observer.unobserve(el);
+          }
+        });
+      }, observerOptions);
+      // Observe all elements with animation triggers
+      [
+        ...document.querySelectorAll(
+          ".will-fade-in, .will-slide-up, .will-slide-left, .will-slide-right, .will-stagger, .will-float"
+        ),
+      ].forEach((el) => {
+        el.classList.remove(
+          "animate-fade-in",
+          "animate-slide-up",
+          "animate-slide-left",
+          "animate-slide-right",
+          "animate-stagger",
+          "animate-float"
+        );
+
+        const rect = el.getBoundingClientRect();
+        const windowHeight =
+          window.innerHeight || document.documentElement.clientHeight;
+        const visible = rect.top < windowHeight && rect.bottom >= 0;
+
+        if (!visible) {
+          el.classList.add("opacity-0");
+        }
+        document.querySelectorAll(".will-stagger").forEach((el, index) => {
+          el.style.animationDelay = `${index * 0.15}s`;
+        });
+        observer.observe(el);
+      });
+
+      // Mobile menu logic
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileMenuClose = document.getElementById("mobile-menu-close");
+      function closeMobileMenu() {
+        mobileMenu.classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+      if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
+        mobileMenuBtn.addEventListener("click", () => {
+          mobileMenu.classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+        });
+        mobileMenuClose.addEventListener("click", closeMobileMenu);
+        // Close on overlay click
+        mobileMenu.addEventListener("click", (e) => {
+          if (e.target === mobileMenu) closeMobileMenu();
+        });
+        // Close on ESC
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") closeMobileMenu();
+        });
+      }
+
+      // Back to Top Button logic
+      const backToTopBtn = document.getElementById("backToTopBtn");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+          backToTopBtn.classList.add(
+            "visible",
+            "opacity-100",
+            "pointer-events-auto",
+            "flex"
+          );
+          backToTopBtn.classList.remove(
+            "invisible",
+            "opacity-0",
+            "pointer-events-none"
+          );
+        } else {
+          backToTopBtn.classList.remove(
+            "visible",
+            "opacity-100",
+            "pointer-events-auto",
+            "flex"
+          );
+          backToTopBtn.classList.add(
+            "invisible",
+            "opacity-0",
+            "pointer-events-none"
+          );
+        }
+      });
+      backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    </script>
+  </body>
+</html>

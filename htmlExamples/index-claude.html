@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>חשב שכר עצמאי - שירותי שכר מקצועיים</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Assistant', sans-serif;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.6s ease-out;
+        }
+        
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, -20px); }
+            100% { transform: translate(0, -0px); }
+        }
+        
+        .pulse-slow {
+            animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse-slow {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .7;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="slide-in-right">
+                    <h1 class="text-2xl font-bold text-indigo-600">💼 חשב שכר עצמאי</h1>
+                </div>
+                <div class="slide-in-left">
+                    <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105">
+                        צור קשר
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg pt-20 pb-20 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="fade-in">
+                <h2 class="text-5xl font-bold mb-6">שירותי שכר מקצועיים ומהימנים</h2>
+                <p class="text-xl mb-8 opacity-90">פתרונות מותאמים אישית לעסק שלך עם דיוק מלא וזמינות גבוהה</p>
+                <div class="space-x-4 space-x-reverse">
+                    <button class="bg-white text-indigo-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 mx-2">
+                        התחל עכשיו
+                    </button>
+                    <button class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-indigo-600 transition-all duration-300 mx-2">
+                        למד עוד
+                    </button>
+                </div>
+            </div>
+            <div class="mt-16 floating">
+                <div class="bg-white bg-opacity-20 backdrop-blur-lg rounded-xl p-8 max-w-4xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                        <div class="scale-in" style="animation-delay: 0.2s;">
+                            <div class="text-4xl font-bold">500+</div>
+                            <div class="text-sm opacity-80">לקוחות מרוצים</div>
+                        </div>
+                        <div class="scale-in" style="animation-delay: 0.4s;">
+                            <div class="text-4xl font-bold">99.9%</div>
+                            <div class="text-sm opacity-80">דיוק בחישובים</div>
+                        </div>
+                        <div class="scale-in" style="animation-delay: 0.6s;">
+                            <div class="text-4xl font-bold">24/7</div>
+                            <div class="text-sm opacity-80">זמינות ותמיכה</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h3 class="text-4xl font-bold text-gray-800 mb-4">השירותים שלנו</h3>
+                <p class="text-xl text-gray-600">פתרונות מקיפים לכל צורכי השכר של העסק שלך</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-xl card-hover fade-in" style="animation-delay: 0.1s;">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h4 class="text-2xl font-semibold mb-4 text-gray-800">חישוב שכר חודשי</h4>
+                    <p class="text-gray-600">חישוב מדויק של שכר, הפרשות סוציאליות וכל הניכויים החובה</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-green-50 to-emerald-100 p-8 rounded-xl card-hover fade-in" style="animation-delay: 0.2s;">
+                    <div class="text-4xl mb-4">📋</div>
+                    <h4 class="text-2xl font-semibold mb-4 text-gray-800">דוחות לרשויות</h4>
+                    <p class="text-gray-600">הכנת דוחות מס הכנסה, ביטוח לאומי ומוסדות פנסיה</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-purple-50 to-violet-100 p-8 rounded-xl card-hover fade-in" style="animation-delay: 0.3s;">
+                    <div class="text-4xl mb-4">💳</div>
+                    <h4 class="text-2xl font-semibold mb-4 text-gray-800">תלושי שכר דיגיטליים</h4>
+                    <p class="text-gray-600">הפקת תלושי שכר מפורטים וברורים לכל העובדים</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-orange-50 to-red-100 p-8 rounded-xl card-hover fade-in" style="animation-delay: 0.4s;">
+                    <div class="text-4xl mb-4">⚖️</div>
+                    <h4 class="text-2xl font-semibold mb-4 text-gray-800">יעוץ משפטי</h4>
+                    <p class="text-gray-600">ייעוץ בנושאי חוקי עבודה ותקנות שכר</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-teal-50 to-cyan-100 p-8 rounded-xl card-hover fade-in" style="animation-delay: 0.5s;">
+                    <div class="text-4xl mb-4">🔒</div>
+                    <h4 class="text-2xl font-semibold mb-4 text-gray-800">אבטחת מידע</h4>
+                    <p class="text-gray-600">הגנה מלאה על פרטיות ואבטחת מידע העובדים</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-pink-50 to-rose-100 p-8 rounded-xl card-hover fade-in" style="animation-delay: 0.6s;">
+                    <div class="text-4xl mb-4">📞</div>
+                    <h4 class="text-2xl font-semibold mb-4 text-gray-800">תמיכה מלאה</h4>
+                    <p class="text-gray-600">זמינות מלאה לשאלות ובעיות במהלך כל השנה</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 slide-in-right">
+                    <h3 class="text-4xl font-bold text-gray-800 mb-6">למה לבחור בנו?</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4 space-x-reverse">
+                            <div class="bg-indigo-600 text-white p-2 rounded-full">✓</div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-800">ניסיון של 15+ שנים</h4>
+                                <p class="text-gray-600">מומחיות עמוקה בתחום השכר והמיסוי</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 space-x-reverse">
+                            <div class="bg-indigo-600 text-white p-2 rounded-full">✓</div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-800">מעודכן בחקיקה</h4>
+                                <p class="text-gray-600">עדכון שוטף של כל השינויים בחוקים ותקנות</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 space-x-reverse">
+                            <div class="bg-indigo-600 text-white p-2 rounded-full">✓</div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-800">שירות אישי</h4>
+                                <p class="text-gray-600">יחס אישי ומותאם לכל לקוח ועסק</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 mt-12 lg:mt-0 slide-in-left">
+                    <div class="bg-white p-8 rounded-xl shadow-2xl pulse-slow">
+                        <div class="text-center">
+                            <div class="text-6xl mb-4">🏆</div>
+                            <h4 class="text-2xl font-bold text-gray-800 mb-4">מוכרים ומוערכים</h4>
+                            <p class="text-gray-600 mb-6">מוכרים על ידי לשכת רואי החשבון ומוערכים על ידי מאות לקוחות</p>
+                            <div class="flex justify-center space-x-2 space-x-reverse">
+                                <span class="text-yellow-400 text-2xl">⭐</span>
+                                <span class="text-yellow-400 text-2xl">⭐</span>
+                                <span class="text-yellow-400 text-2xl">⭐</span>
+                                <span class="text-yellow-400 text-2xl">⭐</span>
+                                <span class="text-yellow-400 text-2xl">⭐</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h3 class="text-4xl font-bold text-gray-800 mb-4">תעריפים שקופים</h3>
+                <p class="text-xl text-gray-600">בחר את החבילה המתאימה לעסק שלך</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-white border-2 border-gray-200 p-8 rounded-xl text-center card-hover scale-in" style="animation-delay: 0.1s;">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-4">עסק קטן</h4>
+                    <div class="text-4xl font-bold text-indigo-600 mb-4">₪299</div>
+                    <div class="text-gray-500 mb-6">לחודש / עד 10 עובדים</div>
+                    <ul class="text-gray-600 space-y-2 mb-8">
+                        <li>✓ חישוב שכר חודשי</li>
+                        <li>✓ תלושי שכר</li>
+                        <li>✓ דוחות בסיסיים</li>
+                        <li>✓ תמיכה באימייל</li>
+                    </ul>
+                    <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-full transition-all duration-300">
+                        בחר תוכנית
+                    </button>
+                </div>
+                
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-8 rounded-xl text-center transform scale-105 card-hover scale-in" style="animation-delay: 0.2s;">
+                    <div class="bg-yellow-400 text-indigo-800 px-3 py-1 rounded-full text-sm font-bold inline-block mb-4">הפופולרי ביותר</div>
+                    <h4 class="text-2xl font-bold mb-4">עסק בינוני</h4>
+                    <div class="text-4xl font-bold mb-4">₪599</div>
+                    <div class="opacity-90 mb-6">לחודש / עד 50 עובדים</div>
+                    <ul class="space-y-2 mb-8">
+                        <li>✓ כל מה שכלול בחבילה הקטנה</li>
+                        <li>✓ דוחות מתקדמים</li>
+                        <li>✓ יעוץ טלפוני</li>
+                        <li>✓ ניהול חופשות ומחלות</li>
+                        <li>✓ אינטגרציה עם מערכות</li>
+                    </ul>
+                    <button class="w-full bg-white text-indigo-600 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300">
+                        בחר תוכנית
+                    </button>
+                </div>
+                
+                <div class="bg-white border-2 border-gray-200 p-8 rounded-xl text-center card-hover scale-in" style="animation-delay: 0.3s;">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-4">עסק גדול</h4>
+                    <div class="text-4xl font-bold text-indigo-600 mb-4">₪999</div>
+                    <div class="text-gray-500 mb-6">לחודש / ללא הגבלת עובדים</div>
+                    <ul class="text-gray-600 space-y-2 mb-8">
+                        <li>✓ כל מה שכלול בחבילות הקודמות</li>
+                        <li>✓ מנהל חשבון יעודי</li>
+                        <li>✓ דוחות מותאמים אישית</li>
+                        <li>✓ תמיכה 24/7</li>
+                        <li>✓ הכשרות צוות</li>
+                    </ul>
+                    <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-full transition-all duration-300">
+                        בחר תוכנית
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg py-20 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="fade-in">
+                <h3 class="text-4xl font-bold mb-6">מוכן להתחיל?</h3>
+                <p class="text-xl mb-8 opacity-90">קבל ייעוץ חינם ובדוק איך אנחנו יכולים לחסוך לך זמן וכסף</p>
+                <div class="space-x-4 space-x-reverse">
+                    <button class="bg-white text-indigo-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 mx-2">
+                        📞 התקשר עכשיו
+                    </button>
+                    <button class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-indigo-600 transition-all duration-300 mx-2">
+                        💬 שלח הודעה
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="fade-in">
+                    <h4 class="text-xl font-bold mb-4">💼 חשב שכר עצמאי</h4>
+                    <p class="text-gray-400">שירותי שכר מקצועיים ואמינים לעסקים בכל הגדלים</p>
+                </div>
+                <div class="fade-in" style="animation-delay: 0.1s;">
+                    <h5 class="font-semibold mb-4">שירותים</h5>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>חישוב שכר</li>
+                        <li>דוחות לרשויות</li>
+                        <li>יעוץ משפטי</li>
+                        <li>תמיכה טכנית</li>
+                    </ul>
+                </div>
+                <div class="fade-in" style="animation-delay: 0.2s;">
+                    <h5 class="font-semibold mb-4">קשר</h5>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>📞 03-1234567</li>
+                        <li>📧 info@payroll.co.il</li>
+                        <li>📍 תל אביב, ישראל</li>
+                    </ul>
+                </div>
+                <div class="fade-in" style="animation-delay: 0.3s;">
+                    <h5 class="font-semibold mb-4">עקבו אחרינו</h5>
+                    <div class="flex space-x-4 space-x-reverse">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Facebook</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">LinkedIn</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 חשב שכר עצמאי. כל הזכויות שמורות.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.fade-in, .slide-in-right, .slide-in-left, .scale-in');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add some interactive effects to buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
